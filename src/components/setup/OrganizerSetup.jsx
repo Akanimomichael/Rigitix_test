@@ -64,7 +64,7 @@ const OrganizerSetup = () => {
          console.log("Error details:", error.response.data); // Log the detailed error response
        }
 
-      //  alert("Something went wrong while submitting your setup.");
+       alert("Something went wrong while submitting your setup.");
        navigate("/");
      }
    } else {

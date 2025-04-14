@@ -50,16 +50,38 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const navigateToDashboard = () => {
-    const dashboardRoutes = {
-      Organizer: "/dashboard/Organizer",
-      Attendee: "/dashboard/Attendee",
-    };
+  // const navigateToDashboard = () => {
+  //   const dashboardRoutes = {
+  //     Organizer: "/dashboard/Organizer",
+  //     Attendee: "/dashboard/Attendee",
+  //   };
 
-    if (userRole in dashboardRoutes) {
-      navigate(dashboardRoutes[userRole]);
-    }
-  };
+  //   if (userRole in dashboardRoutes) {
+  //     navigate(dashboardRoutes[userRole]);
+  //   }
+  // };
+ const navigateToDashboard = () => {
+   if (!userRole) {
+     console.warn("User role not yet loaded");
+     return;
+   }
+
+   const dashboardRoutes = {
+     Organizer: "/dashboard/Organizer",
+     Attendee: "/dashboard/Attendee",
+   };
+
+   const targetRoute = dashboardRoutes[userRole];
+
+   if (targetRoute) {
+     navigate(targetRoute);
+   } else {
+     console.warn("Invalid role:", userRole);
+     navigate("/sign-in");
+   }
+ };
+
+
 
   return (
     <div className="flex items-center justify-between py-2">

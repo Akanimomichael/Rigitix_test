@@ -4,7 +4,8 @@ import App from "./App.jsx";
 import "./index.css";
 import { EmailProvider } from "@/components/OTP";
 import { EventProvider } from "@/context/EventContext";
-import { AuthProvider } from "./context/AuthContext";
+// import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux"; // <-- ADD THIS
 import store from "./redux/store.js"; // <-- ADD THIS

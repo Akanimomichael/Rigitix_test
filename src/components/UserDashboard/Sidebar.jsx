@@ -18,7 +18,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import rigitixBlueLogo from "../../assets/icons/rigitix-blue-logo.png";
 import userImage from "../../assets/icons/user-image.jpeg";
-import { useAuth } from "../../Context/AuthContext";
+// import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useLocation } from "react-router-dom";
 
 

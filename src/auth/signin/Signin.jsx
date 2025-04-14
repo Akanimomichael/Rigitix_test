@@ -7,7 +7,7 @@ import axios from "axios";
 
 // import axios from "axios";
 import Cookies from "js-cookie";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const Signin = () => {
   const navigate = useNavigate();

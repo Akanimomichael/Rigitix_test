@@ -12,6 +12,7 @@ const Navbar = () => {
   const token = Cookies.get("authToken");
   const dropdownRef = useRef(null);
   const [MyDashboard, setMyDashboard] = useState("");
+   const [userRole, setUserRole] = useState("");
   const handleLogout = () => {
     Cookies.remove("authToken"); // Remove the authentication token
     Cookies.remove("userDetails"); // Remove user details
@@ -22,28 +23,30 @@ const Navbar = () => {
 
     navigate("/");
   };
-  useEffect(() => {
-    // Retrieve and parse user details from cookies
-    const storedUserData = Cookies.get("userDetails");
-    const storeDasboardRoute = Cookies.get("userType");
+  // useEffect(() => {
+  //   // Retrieve and parse user details from cookies
+  //   const storedUserData = localStorage.getItem("userDetails");
+  //   // const storeDasboardRoute = Cookies.get("userType");
+  //   const storeDasboardRoute = localStorage.getItem("userType");
+  //   console.log("MyDashboard:", MyDashboard); // Check the value of MyDashboard
 
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    }
-    if (storeDasboardRoute) {
-      setMyDashboard(storeDasboardRoute);
-    }
+  //   if (storedUserData) {
+  //     setUserData(JSON.parse(storedUserData));
+  //   }
+  //   if (storeDasboardRoute) {
+  //     setMyDashboard(storeDasboardRoute);
+  //   }
 
-    // Handle click outside dropdown to close it
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOpenDropdown(false);
-      }
-    };
+  //   // Handle click outside dropdown to close it
+  //   const handleClickOutside = (event) => {
+  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //       setOpenDropdown(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
 
   const getUserInitials = (name) => {
     if (!name) return ""; // Handle empty case
@@ -51,6 +54,36 @@ const Navbar = () => {
     if (words.length === 1) return words[0][0].toUpperCase();
     return (words[0][0] + words[words.length - 1][0]).toUpperCase();
   };
+   useEffect(() => {
+     // Retrieve and parse user details from localStorage
+     const storedUserData = localStorage.getItem("userDetails");
+     const storedUserRole = localStorage.getItem("userType");
+
+     if (storedUserData) {
+       setUserData(JSON.parse(storedUserData));
+     }
+     if (storedUserRole) {
+       setUserRole(storedUserRole); // Set user role based on stored data
+     }
+
+     const handleClickOutside = (event) => {
+       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+         setOpenDropdown(false);
+       }
+     };
+
+     document.addEventListener("mousedown", handleClickOutside);
+     return () => document.removeEventListener("mousedown", handleClickOutside);
+   }, []);
+
+   // Function to navigate to the correct dashboard based on the user role
+   const navigateToDashboard = () => {
+     if (userRole === "Organizer") {
+       navigate("/dashboard/Organizer"); // Admin dashboard route
+     } else if (userRole === "Attendee") {
+       navigate("dashboard/Attendee"); // Vendor dashboard route
+     }
+   };
 
   return (
     <div className="flex items-center justify-between py-2">
@@ -120,7 +153,8 @@ const Navbar = () => {
                   My Profile
                 </li>
                 <li
-                  onClick={() => navigate(`dashboard/${MyDashboard}`)}
+                  // onClick={() => navigate(`dashboard/${MyDashboard}`)}
+                  onClick={navigateToDashboard}
                   className="text-[15px] font-normal text-[#333333] hover:bg-gray-200 px-6 py-3 border-b border-gray-200 cursor-pointer"
                 >
                   My Dashboard

@@ -85,14 +85,12 @@ const handleSignin = async () => {
     const userName = user.name;
     const userEmail = user.email;
 
-    console.log(`this is user details ${userId}, ${userEmail}, ${userName}`)
+    console.log(`this is user details ${userId}, ${userEmail}, ${userName}`);
 
-    
-// email: "harryzahavi@gmail.com";
-// id: 1;
-// name: "John Doe";
-// user_type: "Organizer";
-
+    // email: "harryzahavi@gmail.com";
+    // id: 1;
+    // name: "John Doe";
+    // user_type: "Organizer";
 
     // Save all the necessary data in cookies
     Cookies.set("authToken", token);
@@ -102,15 +100,19 @@ const handleSignin = async () => {
     Cookies.set("userEmail", userEmail);
     localStorage.setItem("userType", userType);
     localStorage.setItem("authToken", token);
+    // Cookies.set("userData", JSON.stringify(user));
+    
 
     // Save the entire user object as well
     Cookies.set("userData", JSON.stringify(user));
+    localStorage.setItem("userDetails", JSON.stringify(user));
 
-     const user_type = Cookies.get("userType");
-       const token3 = Cookies.get("authToken");
-    
-      console.log(`This is from user SIGNIN: My user type is : ${user_type} and ${token3}`);
-    
+    const user_type = Cookies.get("userType");
+    const token3 = Cookies.get("authToken");
+
+    console.log(
+      `This is from user SIGNIN: My user type is : ${user_type} and ${token3}`
+    );
 
     // Call the login function from AuthContext to update global user data
     login(user); // This will update the context with user data
